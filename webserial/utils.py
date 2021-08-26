@@ -41,7 +41,7 @@ def normalize_url(url: HttpUrl) -> HttpUrl:
     for regex, prefix in url_parsers:
         match = regex.search(str(url))
         if match:
-            return parse_obj_as(HttpUrl, "{match.group(1)}{prefix}{match.group(2)}")
+            return parse_obj_as(HttpUrl, f"{match.group(1)}{prefix}{match.group(2)}")
 
 
 def most_recent_file(directory: DirectoryPath, extension="epub") -> FilePath:

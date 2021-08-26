@@ -1,3 +1,4 @@
+import logging
 from tempfile import TemporaryDirectory, NamedTemporaryFile
 from typing import List
 
@@ -5,6 +6,8 @@ from webserial.errors import WebserialError
 from webserial.calibredb import CalibreDb
 from webserial.fff import FanFicFare
 from webserial.utils import most_recent_file, normalize_url
+
+logger = logging.getLogger(__name__)
 
 def perform(calibredb: CalibreDb, fanficfare: FanFicFare, urls: List[str]):
     with TemporaryDirectory() as tempdir:
