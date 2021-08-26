@@ -11,9 +11,13 @@ webserial = "webserial.cli:app"
 [tool.poetry.dependencies]
 python = "^3.9"
 pydantic = "^1.8.2"
-typer = "^0.3.2"
 toml = "^0.10.2"
 FanFicFare = "^4.4.1"
+
+typer = { version = "^0.3.2", optional = true }
+
+[tool.poetry.extras]
+cli = ["typer"]
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

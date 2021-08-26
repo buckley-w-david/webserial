@@ -131,7 +131,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "fanficfare"
-version = "4.4.1"
+version = "4.5.0"
 description = "A tool for downloading fanfiction to eBook formats"
 category = "main"
 optional = false
@@ -396,7 +396,7 @@ name = "typer"
 version = "0.3.2"
 description = "Typer, build great CLIs. Easy to code. Based on Python type hints."
 category = "main"
-optional = false
+optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
@@ -445,10 +445,13 @@ category = "main"
 optional = false
 python-versions = "*"
 
+[extras]
+cli = ["typer"]
+
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "6e4702fbe802c1ce15c365e7b44c5b5c003db13db33aafc0bd3f8d36747350e4"
+content-hash = "3adb4958624a06487efcf4cb2fd3ee4abd2ed2fc8d8275492d4e82ae196964cc"
 
 [metadata.files]
 appdirs = [
@@ -546,7 +549,7 @@ colorama = [
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
 fanficfare = [
-    {file = "FanFicFare-4.4.1.tar.gz", hash = "sha256:3e4fb4b02fa95697f9e9c62c6218f5d5aa01a113dda5742e58f89c08c8334831"},
+    {file = "FanFicFare-4.5.0.tar.gz", hash = "sha256:ddea84335fe967b397a7372ccac3d013aa7005ba37cfda1aa22901ece674b44d"},
 ]
 html2text = [
     {file = "html2text-2020.1.16-py3-none-any.whl", hash = "sha256:c7c629882da0cf377d66f073329ccf34a12ed2adf0169b9285ae4e63ef54c82b"},

@@ -4,6 +4,7 @@ import re
 import subprocess
 
 from pydantic import BaseModel, FilePath, DirectoryPath, HttpUrl
+from pydantic.tools import parse_obj_as
 
 from webserial.errors import (
     EqualChapterError,
@@ -37,14 +38,10 @@ more_chapters = re.compile(
 
 
 def normalize_url(url: HttpUrl) -> HttpUrl:
-    # This can't be the correct way to construct pydantic types
-    class MyModel(BaseModel):
-        url: HttpUrl
-
     for regex, prefix in url_parsers:
         match = regex.search(str(url))
         if match:
-            return MyModel(url=f"{match.group(1)}{prefix}{match.group(2)}").url
+            return parse_obj_as(HttpUrl, "{match.group(1)}{prefix}{match.group(2)}")
 
 
 def most_recent_file(directory: DirectoryPath, extension="epub") -> FilePath:
