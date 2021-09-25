@@ -3,9 +3,9 @@ import subprocess
 
 from pydantic import FilePath, HttpUrl
 
-import fanficfare
+import fanficfare  # type: ignore
 from fanficfare import adapters, writers, exceptions
-from fanficfare.configurable import Configuration
+from fanficfare.configurable import Configuration  # type: ignore
 
 from webserial.errors import (
     EqualChapterError,
@@ -17,15 +17,15 @@ from webserial.errors import (
 # Shamelessly stolen from https://github.com/MrTyton/AutomatedFanfic/blob/d062eb1dd8ede38208f97b95e5f73503415f61f4/fanficdownload.py
 url_parsers = [
     (
-        re.compile("(https?://).*(fanfiction.net/s/\d*)/?.*"),
+        re.compile(r"(https?://).*(fanfiction.net/s/\d*)/?.*"),
         "www.",
     ),  # ffnet - TODO confirm prefix
-    (re.compile("(https?://).*(archiveofourown.org/works/\d*)/?.*"), ""),  # ao3
+    (re.compile(r"(https?://).*(archiveofourown.org/works/\d*)/?.*"), ""),  # ao3
     (
-        re.compile("(https?://).*(fictionpress.com/s/\d*)/?.*"),
+        re.compile(r"(https?://).*(fictionpress.com/s/\d*)/?.*"),
         "",
     ),  # fictionpress - TODO confirm prefix
-    (re.compile("(https?://).*(royalroad.com/fiction/\d*)/?.*"), "www."),  # royalroad
+    (re.compile(r"(https?://).*(royalroad.com/fiction/\d*)/?.*"), "www."),  # royalroad
     (re.compile("(https?://)(.*)"), ""),  # other sites
 ]
 equal_chapters = re.compile(r".* already contains \d* chapters.")
