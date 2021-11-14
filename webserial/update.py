@@ -9,7 +9,8 @@ from webserial.utils import most_recent_file, normalize_url
 
 logger = logging.getLogger(__name__)
 
-def perform(calibredb: CalibreDb, fanficfare: FanFicFare, urls: List[str]):
+def perform(calibredb: CalibreDb, fanficfare: FanFicFare, urls: List[str]) -> List[int]:
+    ids = []
     with TemporaryDirectory() as tempdir:
         for url in urls:
             normalized_url = normalize_url(url)
@@ -23,6 +24,7 @@ def perform(calibredb: CalibreDb, fanficfare: FanFicFare, urls: List[str]):
                     with NamedTemporaryFile(suffix=".epub", dir=str(tempdir)) as f:
                         fanficfare.download_serial(f.name, normalized_url, update=False)
                         new_id = calibredb.add(f.name)
+                        ids.append(new_id)
                         logger.info(f"Added %s as %s", url, new_id)
                 except WebserialError as e:
                     logger.warning("%s skipping", e)
@@ -44,8 +46,10 @@ def perform(calibredb: CalibreDb, fanficfare: FanFicFare, urls: List[str]):
                     )
                     calibredb.remove(calibre_id)
                     new_id = calibredb.add(exported_serial)
+                    ids.append(new_id)
                     logger.info(f"Added %s as %s", url, new_id)
                 except WebserialError as e:
                     logger.warning("%s skipping", e)
                 except Exception as e:
                     logger.error("🔥🔥🔥 %s 🔥🔥🔥", e)
+    return ids

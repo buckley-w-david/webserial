@@ -1,3 +1,4 @@
+import json
 import logging
 from pathlib import Path
 from typing import List
@@ -36,4 +37,5 @@ def update(urls: List[str], config_file: Path = Path("webserial.toml")):
     )
     fanficfare = FanFicFare()
 
-    perform(calibredb, fanficfare, urls)
+    ids = perform(calibredb, fanficfare, urls)
+    print(json.dumps(ids))

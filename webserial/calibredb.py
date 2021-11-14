@@ -1,6 +1,7 @@
+import json
 import re
 import subprocess
-from typing import List, Dict, Tuple, Union
+from typing import List, Dict, Tuple, Union, Optional
 
 from pydantic import FilePath, DirectoryPath
 
@@ -37,6 +38,18 @@ class CalibreDb:
         else:
             return []
 
+    def list(self, query: str, fields: Optional[List[str]]) -> Dict:
+        command = ["list", "--for-machine", "--search", query]
+        if fields:
+            command.extend(["--fields", ",".join(fields)])
+
+        completed_process = self.run(command)
+        result = completed_process.stdout.decode("utf-8")
+        if result:
+            return json.loads(result)
+        else:
+            return {}
+
     def get_metadata(self, calibre_id: int) -> Dict[str, str]:
         completed_process = self.run(["show_metadata", str(calibre_id)])
         result = completed_process.stdout.decode("utf-8")
@@ -52,7 +65,7 @@ class CalibreDb:
         else:
             return {}
 
-    #                                                                         v - Dangerous mutable default arugment
+    # Dangerous mutable default arugment
     def set_metadata(
         self,
         calibre_id: int,
